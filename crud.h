@@ -19,7 +19,7 @@ public:
     Crud();
     Crud(int IDR, QString TITRER, QString CLASSR, QString DESCR, QString DATEDR, QString DATEFR);
 
-    void add_recherche(QTableWidget *tableWidget);
+    bool add_recherche(QTableWidget *tableWidget);
     void delete_recherche(int IDR, QTableWidget *tableWidget);
     void update_recherche(int IDR);
     static void load_recherche_data(QTableWidget *tableWidget);

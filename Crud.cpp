@@ -15,15 +15,14 @@ Crud::Crud(int IDR, QString TITRER, QString CLASSR, QString DESCR, QString DATED
     this->DATEFR = DATEFR;
 }
 
-void Crud::add_recherche(QTableWidget *tableWidget) {
+bool Crud::add_recherche(QTableWidget *tableWidget) {
     connection c;
     QSqlDatabase db = c.get_database();
-
     if (db.open()) {
         QSqlQuery thisdb(db);
-        thisdb.prepare("INSERT INTO RECHERCHE (IDR, TITRER, CLASSR, DESCR, DATEDR, DATEFR) "
-                       "VALUES (:IDR, :TITRER, :CLASSR, :DESCR, TO_DATE(:DATEDR, 'YYYY-MM-DD'), TO_DATE(:DATEFR, 'YYYY-MM-DD'))");
-        thisdb.bindValue(":IDR", IDR);
+        thisdb.prepare("INSERT INTO RECHERCHE (TITRER, CLASSR, DESCR, DATEDR, DATEFR) "
+                       "VALUES (:TITRER, :CLASSR, :DESCR, TO_DATE(:DATEDR, 'YYYY-MM-DD'), TO_DATE(:DATEFR, 'YYYY-MM-DD'))");
+
         thisdb.bindValue(":TITRER", TITRER);
         thisdb.bindValue(":CLASSR", CLASSR);
         thisdb.bindValue(":DESCR", DESCR);
@@ -31,10 +30,18 @@ void Crud::add_recherche(QTableWidget *tableWidget) {
         thisdb.bindValue(":DATEFR", DATEFR);
 
         if (thisdb.exec()) {
+            int newId = 0;
+            QSqlQuery getIdQuery(db);
+            getIdQuery.prepare("SELECT MAX(IDR) FROM RECHERCHE");
+            if (getIdQuery.exec() && getIdQuery.next()) {
+                newId = getIdQuery.value(0).toInt();
+                qDebug() << "Got new ID:" << newId;
+            } else {
+                qDebug() << "Failed to get ID:" << getIdQuery.lastError().text();
+            }
             int row = tableWidget->rowCount();
             tableWidget->insertRow(row);
-
-            tableWidget->setItem(row, 0, new QTableWidgetItem(QString::number(IDR)));
+            tableWidget->setItem(row, 0, new QTableWidgetItem(QString::number(newId)));
             tableWidget->setItem(row, 1, new QTableWidgetItem(TITRER));
             tableWidget->setItem(row, 2, new QTableWidgetItem(CLASSR));
             tableWidget->setItem(row, 3, new QTableWidgetItem(DESCR));
@@ -42,11 +49,15 @@ void Crud::add_recherche(QTableWidget *tableWidget) {
             tableWidget->setItem(row, 5, new QTableWidgetItem(DATEFR));
 
             qDebug() << "Recherche added successfully to both database and table widget.";
+            return true;
         } else {
             qDebug() << "Failed to execute query:" << thisdb.lastError().text();
+            qDebug() << "SQL:" << thisdb.lastQuery();
+            return false;
         }
     } else {
         qDebug() << "Failed to open database.";
+        return false;
     }
 }
 
@@ -109,23 +120,23 @@ void Crud::load_recherche_data(QTableWidget *tableWidget) {
     QSqlDatabase db = c.get_database();
     if (db.open()) {
         QSqlQuery query(db);
-
         query.prepare("SELECT IDR, TITRER, CLASSR, DESCR, "
                       "TO_CHAR(DATEDR, 'YYYY-MM-DD') as DATEDR, "
                       "TO_CHAR(DATEFR, 'YYYY-MM-DD') as DATEFR FROM RECHERCHE ORDER BY IDR");
+
         if (query.exec()) {
             while (query.next()) {
                 int row = tableWidget->rowCount();
                 tableWidget->insertRow(row);
-
                 int id = query.value("IDR").toInt();
                 QString title = query.value("TITRER").toString();
                 QString classification = query.value("CLASSR").toString();
                 QString description = query.value("DESCR").toString();
                 QString startDate = query.value("DATEDR").toString();
                 QString endDate = query.value("DATEFR").toString();
-
-                tableWidget->setItem(row, 0, new QTableWidgetItem(QString::number(id)));
+                QTableWidgetItem *idItem = new QTableWidgetItem(QString::number(id));
+                idItem->setFlags(idItem->flags() & ~Qt::ItemIsEditable);
+                tableWidget->setItem(row, 0, idItem);
                 tableWidget->setItem(row, 1, new QTableWidgetItem(title));
                 tableWidget->setItem(row, 2, new QTableWidgetItem(classification));
                 tableWidget->setItem(row, 3, new QTableWidgetItem(description));

@@ -13,5 +13,5 @@ bool connection::set_connection(){
 }
 
 QSqlDatabase connection::get_database(){
-    return QSqlDatabase::database(); // traja3 e5ir database connectit 3leha
+    return QSqlDatabase::database();
 }

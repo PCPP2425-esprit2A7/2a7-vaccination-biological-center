@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1578</width>
-    <height>776</height>
+    <width>1483</width>
+    <height>783</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -404,7 +404,7 @@ background-color: none;</string>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Raised</enum>
      </property>
-     <widget class="QLineEdit" name="ID">
+     <widget class="QLineEdit" name="titre">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -417,24 +417,11 @@ background-color: none;</string>
        <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="titre">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>60</y>
-        <width>161</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);</string>
-      </property>
-     </widget>
      <widget class="QDateEdit" name="dateF">
       <property name="geometry">
        <rect>
         <x>130</x>
-        <y>270</y>
+        <y>250</y>
         <width>161</width>
         <height>29</height>
        </rect>
@@ -447,7 +434,7 @@ background-color: none;</string>
       <property name="geometry">
        <rect>
         <x>130</x>
-        <y>220</y>
+        <y>200</y>
         <width>161</width>
         <height>29</height>
        </rect>
@@ -460,7 +447,7 @@ background-color: none;</string>
       <property name="geometry">
        <rect>
         <x>130</x>
-        <y>150</y>
+        <y>120</y>
         <width>161</width>
         <height>51</height>
        </rect>
@@ -473,7 +460,7 @@ background-color: none;</string>
       <property name="geometry">
        <rect>
         <x>130</x>
-        <y>100</y>
+        <y>70</y>
         <width>161</width>
         <height>28</height>
        </rect>
@@ -521,36 +508,11 @@ color:white</string>
        <string>ajouter</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>41</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Perpetua</family>
-        <pointsize>12</pointsize>
-        <italic>true</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color:#030C54;
-border:none;</string>
-      </property>
-      <property name="text">
-       <string>ID :</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>60</y>
+        <y>20</y>
         <width>61</width>
         <height>31</height>
        </rect>
@@ -575,7 +537,7 @@ border:none;</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>100</y>
+        <y>70</y>
         <width>121</width>
         <height>31</height>
        </rect>
@@ -600,7 +562,7 @@ border:none;</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>160</y>
+        <y>140</y>
         <width>121</width>
         <height>31</height>
        </rect>
@@ -625,7 +587,7 @@ border:none;</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>220</y>
+        <y>200</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -650,7 +612,7 @@ border:none;</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>270</y>
+        <y>250</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -688,6 +650,38 @@ color:white</string>
       </property>
       <property name="text">
        <string>cancel</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="openAIAssistantButton">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>130</y>
+        <width>31</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/new/prefix1/image/mod.jpeg);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="simulationButton">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>20</y>
+        <width>31</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/new/prefix1/image/Adobe Express - file (5).png);</string>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </widget>
@@ -902,7 +896,7 @@ border:none;</string>
       </rect>
      </property>
     </widget>
-    <widget class="QComboBox" name="statComboBox">
+    <widget class="QComboBox" name="StatComboBox">
      <property name="geometry">
       <rect>
        <x>1110</x>
