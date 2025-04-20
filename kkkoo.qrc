@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/jbnjj">
+        <file>image/patient.png</file>
+        <file>image/pdff.png</file>
+        <file>image/Remove background project.png</file>
+        <file>image/repeat.svg</file>
+        <file>image/sup.png</file>
+    </qresource>
+</RCC>
