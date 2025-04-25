@@ -1,0 +1,14 @@
+debug/QrCode.o
+debug/smtpclient.o
+debug/mimepart.o
+debug/mimemessage.o
+debug/mimemultipart.o
+debug/connection.o
+debug/main.o
+debug/grendervous.o
+debug/rendervous.o
+debug/qrc_res.o
+debug/moc_smtpclient.o
+debug/moc_mimepart.o
+debug/moc_mimemultipart.o
+debug/moc_grendervous.o

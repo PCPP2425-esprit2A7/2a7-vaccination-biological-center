@@ -1,0 +1,14 @@
+release/QrCode.o
+release/smtpclient.o
+release/mimepart.o
+release/mimemessage.o
+release/mimemultipart.o
+release/connection.o
+release/main.o
+release/grendervous.o
+release/rendervous.o
+release/qrc_res.o
+release/moc_smtpclient.o
+release/moc_mimepart.o
+release/moc_mimemultipart.o
+release/moc_grendervous.o
