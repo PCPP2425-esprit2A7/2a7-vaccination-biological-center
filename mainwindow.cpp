@@ -2,356 +2,352 @@
 #include "ui_mainwindow.h"
 #include "connection.h"
 #include "Crud.h"
+#include "PatientDetailsDialog.h"
 #include <QString>
 #include <QMessageBox>
 #include <QRegularExpression>
 #include <QDebug>
-#include <QPdfWriter>
-#include <QPainter>
 #include <QFileDialog>
-#include <QPageSize>
+#include <QUrl>
+#include <QFileInfo>
+#include <QtCharts/QChartView>
+#include <QtCharts/QBarSeries>
+#include <QtCharts/QBarSet>
+#include <QtCharts/QCategoryAxis>
+#include <QtCharts/QHorizontalStackedBarSeries>
+#include <QEasingCurve>
+#include "animatedbaritem.h"
+#include <QPropertyAnimation>
+#include <QtCharts/QPieSeries>
+#include <QtCharts>
+#include <QGraphicsDropShadowEffect>
 
+// Define constant for telephone length to avoid encoding issues
+const int TELEPHONE_LENGTH = 8;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    fileLabel(nullptr),
+    dnaWindow(nullptr),
+    showingStats(false)
+
 {
     ui->setupUi(this);
+    ui->chartLayout->setVisible(false);
 
-    // Établir la connexion à la base de données
-    connection c;
-    if (c.set_connection()) {
-        qDebug() << "Database connected";
+    // Empêcher l'entrée de lettres dans les champs ID et Téléphone
+    ui->id->setValidator(new QIntValidator(10000000, 99999999, this));
+    ui->tel->setValidator(new QIntValidator(10000000, 99999999, this));
 
-        // Charger les patients dans le QTableWidget
-        Crud crud;
-        crud.load_patients(ui->tableWidget); // Charge les patients dans la table
-    } else {
-        qDebug() << "Failed to connect to database";
-    }
+    // Empêcher l'entrée de chiffres dans les champs "Nom" et "Prénom"
+    QRegularExpression rx("^[A-Za-zÀ-ÖØ-öø-ÿ\\s]+$");
+    QRegularExpressionValidator *validator = new QRegularExpressionValidator(rx, this);
+    ui->nom->setValidator(validator);
+    ui->prenom->setValidator(validator);
+
     // Initialiser le QComboBox pour le genre
     ui->genre->addItem("Homme");
     ui->genre->addItem("Femme");
-    // Connecter le champ de saisie du nom à un slot
-    connect(ui->id2, &QLineEdit::textChanged, this, &MainWindow::on_id2_textChanged);
-    //  connexion de signal à slot par la tablewidget
-    connect(ui->tableWidget, &QTableWidget::cellClicked, this, &MainWindow::on_tableWidget_cellClicked);
-    // Connecter le bouton "pdf" à un slot
-    connect(ui->pdf, &QPushButton::clicked, this, &MainWindow::on_pdf_clicked);
-    // Connecter le bouton "Cancel" à un slot
-    connect(ui->cancel, &QPushButton::clicked, this, &MainWindow::on_cancel_clicked);
-    // Mettre à jour les statistiques
-    updateStatistics();
-}
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
+    // Initialize fileLabel
+    fileLabel = ui->fileLabel;
 
-void MainWindow::on_ajouter_clicked() {
-    QString id = ui->id->text();
-    QString nom = ui->nom->text();
-    QString prenom = ui->prenom->text();
-    QString genre = ui->genre->currentText();
-    QString date = ui->date->text();
-    QString tel = ui->tel->text();
-    QString doc = ui->doc->text();
-
-    bool idOk;
-    int idInt = id.toInt(&idOk);
-    if (!idOk || id.length() != 8) {
-        QMessageBox::warning(this, "Erreur", "L'ID doit contenir 8 chiffres.");
-        return;
-    }
-
-    QRegularExpression nameRegex("^[A-Za-zÀ-ÖØ-öø-ÿ\\s]+$");
-    if (!nameRegex.match(nom).hasMatch() || !nameRegex.match(prenom).hasMatch()) {
-        QMessageBox::warning(this, "Erreur", "Le nom et le prénom doivent contenir uniquement des lettres.");
-        return;
-    }
-
-
-    QRegularExpression dateRegex("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(\\d{4})$");
-    QRegularExpressionMatch dateMatch = dateRegex.match(date);
-    if (!dateMatch.hasMatch()) {
-        QMessageBox::warning(this, "Erreur", "La date doit être au format jj/mm/aaaa.");
-        return;
-    }
-
-    bool telOk;
-    int telInt = tel.toInt(&telOk);
-    if (!telOk || tel.length() != 8) {
-        QMessageBox::warning(this, "Erreur", "Le numéro de téléphone doit contenir exactement 8 chiffres.");
-        return;
-    }
-
-    if (doc.isEmpty()) {
-        QMessageBox::warning(this, "Erreur", "Veuillez remplir la description.");
-        return;
-    }
-
-    Crud add(idInt, nom, prenom, genre, date, doc, telInt);
-    add.add_patient(ui->tableWidget);
-
-    ui->id->clear();
-    ui->nom->clear();
-    ui->prenom->clear();
-    ui->genre->clear();
-    ui->date->clear();
-    ui->tel->clear();
-    ui->doc->clear();
-
-    QMessageBox::information(this, "Succès", "Patient ajouté avec succès !");
-    updateStatistics();
-}
-
-void MainWindow::on_drop_clicked() {
-    QString id = ui->id2->text();
-    bool test;
-    int id2int = id.toInt(&test);
-    Crud drop;
-    drop.delete_patient(id2int, ui->tableWidget);
-    QMessageBox::information(this, "Success", "Patient supprimé.");
-    updateStatistics();
-}
-
-void MainWindow::on_mod_clicked() {
-    QString id = ui->id->text();
-    QString nom = ui->nom->text();
-    QString prenom = ui->prenom->text();
-    QString genre = ui->genre->currentText();
-    QString date = ui->date->text();
-    QString tel = ui->tel->text();
-    QString doc = ui->doc->text();
-
-    bool idOk, telOk;
-    int idInt = id.toInt(&idOk);
-    int telInt = tel.toInt(&telOk);
-
-    if (!idOk) { // controle de saisie
-        QMessageBox::warning(this, "Erreur", "L'ID doit être un nombre.");
-        return;
-    }
-
-    if (!telOk || tel.length() != 8) { // controle de saisie
-        QMessageBox::warning(this, "Erreur", "Le numéro de téléphone doit contenir exactement 8 chiffres.");
-        return;
-    }
-
-    // Appel de la méthode de mise à jour
-    Crud update;
-    update.update_patient(idInt, nom, prenom, genre, date, doc, telInt, ui->tableWidget);
-
-    // Effacer les champs après la mise à jour
-    ui->id->clear();
-    ui->nom->clear();
-    ui->prenom->clear();
-    ui->genre->clear();
-    ui->date->clear();
-    ui->tel->clear();
-    ui->doc->clear();
-
-    QMessageBox::information(this, "Succès", "Les données du patient ont été mises à jour !");
-    updateStatistics();
-}
-
-
-
-void MainWindow::on_id2_textChanged(const QString &text) { // afficher les anciens données sur les labels
-    bool idOk;
-    int id = text.toInt(&idOk); // Convertir le texte en ID
-
-    if (idOk && id > 0) {
-        // Récupérer les données du patient par son ID
+    // Connexion à la base de données
+    connection c;
+    if (c.set_connection()) {
+        qDebug() << "Database connected";
         Crud crud;
-        QMap<QString, QString> patientData = crud.getPatientById(id);
+        crud.load_patients(ui->tableWidget);
+    } else {
+        qDebug() << "Failed to connect to database";
+    }
 
-        if (!patientData.isEmpty()) {
-            // Remplir les champs du formulaire avec les données récupérées
-            ui->id->setText(patientData["id"]);
-            ui->nom->setText(patientData["nom"]);
-            ui->prenom->setText(patientData["prenom"]);
-            ui->genre->setCurrentText(patientData["genre"]);
-            ui->date->setText(patientData["date"]);
-            ui->tel->setText(patientData["tel"]);
-            ui->doc->setText(patientData["dossier"]);
+    // Connexions des boutons
+    connect(ui->tableWidget, &QTableWidget::cellClicked, this, &MainWindow::on_tableWidget_cellClicked);
+    connect(ui->sortComboBox, &QComboBox::currentTextChanged, this, &MainWindow::on_sortComboBox_changed);
+    connect(ui->browseButton, &QPushButton::clicked, this, &MainWindow::on_browseButton_clicked);
+    connect(ui->DNAbutton, &QPushButton::clicked, this, &MainWindow::on_DNAbutton_clicked);
+
+}
+
+MainWindow::~MainWindow() {
+    delete ui;
+    if (dnaWindow) {
+        delete dnaWindow;  // Nettoyage mémoire
+    }
+}
+
+void MainWindow::showPatientTable()
+{
+    // Hide statistics and show patient table
+    ui->chartLayout->setVisible(false);
+    ui->tableWidget->setVisible(true);
+
+    // Refresh the table data if needed
+    Crud crud;
+    crud.load_patients(ui->tableWidget);
+
+    // Reset the stats button text/icon if needed
+    ui->StatButton->setText("Show Statistics");
+}
+
+void MainWindow::on_StatButton_clicked() {
+    if (showingStats) {
+        showPatientTable();
+    } else {
+        showStatistics();
+    }
+    showingStats = !showingStats;
+}
+
+void MainWindow::showStatistics() {
+    ui->tableWidget->setVisible(false);
+    ui->chartLayout->setVisible(true);
+    Crud crud;
+    crud.load_patients(ui->tableWidget);
+    // Nettoyer l'ancien contenu
+    QLayout *layout = ui->chartLayout->layout();
+    if (layout) {
+        QLayoutItem *item;
+        while ((item = layout->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
         }
     } else {
-        // Si l'ID n'est pas valide, vider les champs
-        ui->id->clear();
-        ui->nom->clear();
-        ui->prenom->clear();
-        ui->genre->setCurrentIndex(-1);
-        ui->date->clear();
-        ui->tel->clear();
-        ui->doc->clear();
+        layout = new QVBoxLayout();
+        ui->chartLayout->setLayout(layout);
     }
 
-
-}
-
-
-
-void MainWindow::on_nom2_textChanged(const QString &text) {  //tri par ordre alphbitique
-
-    Crud crud;
-    crud.search_patient(-1, text, ui->tableWidget);
-
-}
-
-
-
-
-void MainWindow::on_tableWidget_cellClicked(int row, int column) {
-    Q_UNUSED(column); // Pour éviter l'avertissement "unused parameter"
-
-    // Récupérer les données de la ligne sélectionnée
-    QTableWidgetItem *idItem = ui->tableWidget->item(row, 0); // Colonne ID
-    QTableWidgetItem *nomItem = ui->tableWidget->item(row, 1); // Colonne Nom
-    QTableWidgetItem *prenomItem = ui->tableWidget->item(row, 2); // Colonne Prénom
-    QTableWidgetItem *genreItem = ui->tableWidget->item(row, 3); // Colonne Genre
-    QTableWidgetItem *dateItem = ui->tableWidget->item(row, 4); // Colonne Date de naissance
-    QTableWidgetItem *telItem = ui->tableWidget->item(row, 5); // Colonne Téléphone
-    QTableWidgetItem *dossierItem = ui->tableWidget->item(row, 6); // Colonne Dossier
-
-    // Remplir les champs du formulaire avec les données récupérées
-    if (idItem && nomItem && prenomItem && genreItem && dateItem && telItem && dossierItem) {
-        ui->id->setText(idItem->text()); // Remplir le champ ID
-        ui->nom->setText(nomItem->text()); // Remplir le champ Nom
-        ui->prenom->setText(prenomItem->text()); // Remplir le champ Prénom
-        ui->genre->setCurrentText(genreItem->text()); // Remplir le champ Genre
-        ui->date->setText(dateItem->text()); // Remplir le champ Date de naissance
-        ui->tel->setText(telItem->text()); // Remplir le champ Téléphone
-        ui->doc->setText(dossierItem->text()); // Remplir le champ Dossier
-    } else {
-        qDebug() << "Erreur : Impossible de récupérer les données de la ligne sélectionnée.";
-    }
-}
-
-
-void MainWindow::on_pdf_clicked() {
-    // Vérifier si une ligne est sélectionnée
-    int row = ui->tableWidget->currentRow();
-    if (row == -1) {
-        QMessageBox::warning(this, "Erreur de sélection", "Veuillez sélectionner un patient pour générer le PDF.");
-        return;
-    }
-
-    // Demander le chemin pour enregistrer le fichier PDF
-    QString filePath = QFileDialog::getSaveFileName(this, "Enregistrer en PDF", "", "Fichiers PDF (*.pdf)");
-    if (filePath.isEmpty()) {
-        return;
-    }
-
-    // Création du PDF
-    QPdfWriter pdfWriter(filePath);
-    pdfWriter.setPageSize(QPageSize::A4);
-    pdfWriter.setResolution(300);
-    QPainter painter(&pdfWriter);
-
-    // Taille de la page
-    int pageWidth = pdfWriter.width();
-    int pageHeight = pdfWriter.height();
-
-    // Titre du PDF
-    QFont titleFont("Arial", 30, QFont::Bold);
-    painter.setFont(titleFont);
-    QRect titleRect(0, 100, pageWidth, 100);
-    painter.drawText(titleRect, Qt::AlignCenter, "Dossier Patient");
-
-    // Logo
-    QPixmap logo(":/new/prefix1/image/Adobe Express - file (5).png"); // Vérifie bien le chemin de l'image
-    if (!logo.isNull()) {
-        int logoWidth = 400;
-        int logoHeight = 350;
-        int logoX = pageWidth - logoWidth - 50;
-        int logoY = 50;
-        painter.drawPixmap(logoX, logoY, logoWidth, logoHeight, logo);
-    }
-
-    // Styles des textes
-    QFont headerFont("Arial", 18, QFont::Bold);
-    QFont contentFont("Arial", 16);
-
-    // Position de départ pour l'affichage des données
-    int yPosition = 300;
-    int rowHeight = 300;
-    int padding = 100;
-
-    // En-têtes des informations du patient
-    QStringList headers = {"ID", "Nom", "Prénom", "Genre", "Date de naissance", "Téléphone", "Dossier médical"};
-    QStringList data;
-
-    // Récupérer les valeurs de la ligne sélectionnée
-    for (int col = 0; col < ui->tableWidget->columnCount(); ++col) {
-        QTableWidgetItem *item = ui->tableWidget->item(row, col);
-        QString cellText = item && !item->text().isEmpty() ? item->text() : "<Vide>";
-        data.append(cellText);
-    }
-
-    // Afficher les informations dans le PDF
-    for (int i = 0; i < headers.size(); ++i) {
-        painter.setFont(headerFont);
-        QRect headerRect(padding, yPosition, pageWidth - 2 * padding, rowHeight/2);
-        painter.drawText(headerRect, Qt::AlignLeft, headers[i] + " :");
-
-        yPosition += rowHeight/2;
-
-        painter.setFont(contentFont);
-        QRect dataRect(padding, yPosition, pageWidth - 2 * padding, rowHeight/2);
-        painter.drawText(dataRect, Qt::AlignLeft, data[i]);
-
-        yPosition += rowHeight/2;
-        yPosition += 50;
-    }
-
-    // Fin du document
-    painter.end();
-
-    // Confirmation
-    QMessageBox::information(this, "Succès", "Le PDF du patient a été généré avec succès !");
-}
-
-
-void MainWindow::on_cancel_clicked() {
-    // Effacer les champs du formulaire
-    ui->id->clear();
-    ui->nom->clear();
-    ui->prenom->clear();
-    ui->genre->setCurrentIndex(-1); // Réinitialiser le QComboBox
-    ui->date->clear();
-    ui->tel->clear();
-    ui->doc->clear();
-
-}
-
-void MainWindow::updateStatistics() {
-    int hommeCount = 0;
-    int femmeCount = 0;
-
-    // Lire directement les données de la table des patients
+    // Compter les hommes et femmes
+    int hommeCount = 0, femmeCount = 0;
     for (int row = 0; row < ui->tableWidget->rowCount(); ++row) {
-        QTableWidgetItem *genreItem = ui->tableWidget->item(row, 3); // Colonne "Genre"
-
+        QTableWidgetItem *genreItem = ui->tableWidget->item(row, 3);
         if (genreItem) {
             QString genre = genreItem->text().toLower();
-            if (genre == "homme") {
-                hommeCount++;
-            } else if (genre == "femme") {
-                femmeCount++;
-            }
+            if (genre == "homme") hommeCount++;
+            else if (genre == "femme") femmeCount++;
         }
     }
 
-    // Mettre à jour la table des statistiques
-    ui->tableWidget_2->clearContents(); // Garder les en-têtes
-    ui->tableWidget_2->setRowCount(2);
+    // === CAMEMBERT ANIMÉ ===
+    QPieSeries *pieSeries = new QPieSeries();
+    QPieSlice *hommeSlice = pieSeries->append("Hommes", hommeCount);
+    QPieSlice *femmeSlice = pieSeries->append("Femmes", femmeCount);
 
-    ui->tableWidget_2->setItem(0, 0, new QTableWidgetItem("Hommes"));
-    ui->tableWidget_2->setItem(0, 1, new QTableWidgetItem(QString::number(hommeCount)));
+    // Couleurs modernes
+    hommeSlice->setColor(QColor(65, 105, 225)); // Bleu royal
+    femmeSlice->setColor(QColor(255, 105, 180)); // Rose vif
 
-    ui->tableWidget_2->setItem(1, 0, new QTableWidgetItem("Femmes"));
-    ui->tableWidget_2->setItem(1, 1, new QTableWidgetItem(QString::number(femmeCount)));
+    // Animation des tranches
+    hommeSlice->setExploded(true);
+    hommeSlice->setExplodeDistanceFactor(0.1);
+    femmeSlice->setExploded(true);
+    femmeSlice->setExplodeDistanceFactor(0.1);
+
+    // Effet de lumière
+    hommeSlice->setBorderColor(Qt::white);
+    femmeSlice->setBorderColor(Qt::white);
+    hommeSlice->setBorderWidth(2);
+    femmeSlice->setBorderWidth(2);
+
+    QChart *pieChart = new QChart();
+    pieChart->addSeries(pieSeries);
+    pieChart->setTitleFont(QFont("Arial", 14, QFont::Bold));
+    pieChart->legend()->setAlignment(Qt::AlignRight);
+    pieChart->legend()->setFont(QFont("Arial", 10));
+    pieChart->setBackgroundBrush(QBrush(QColor(240, 248, 255)));
+    pieChart->setAnimationOptions(QChart::AllAnimations);
+
+    QChartView *pieChartView = new QChartView(pieChart);
+    pieChartView->setRenderHint(QPainter::Antialiasing);
+    pieChartView->setMinimumSize(400, 400);
+
+    // === GRAPHIQUE À BARRES ANIMÉ ===
+    QBarSeries *barSeries = new QBarSeries();
+
+    QBarSet *setHommes = new QBarSet("Hommes");
+    *setHommes << hommeCount;
+    setHommes->setColor(QColor(65, 105, 225));
+
+    QBarSet *setFemmes = new QBarSet("Femmes");
+    *setFemmes << femmeCount;
+    setFemmes->setColor(QColor(255, 105, 180));
+
+    barSeries->append(setHommes);
+    barSeries->append(setFemmes);
+
+    QChart *barChart = new QChart();
+    barChart->addSeries(barSeries);
+    barChart->setTitleFont(QFont("Arial", 14, QFont::Bold));
+    barChart->setAnimationOptions(QChart::SeriesAnimations);
+    barChart->setBackgroundBrush(QBrush(QColor(240, 248, 255)));
+    barChart->legend()->setVisible(true);
+    barChart->legend()->setAlignment(Qt::AlignBottom);
+    barChart->legend()->setFont(QFont("Arial", 10));
+
+    // Configuration des axes
+    QBarCategoryAxis *axisX = new QBarCategoryAxis();
+    axisX->append("Genre");
+    barChart->addAxis(axisX, Qt::AlignBottom);
+    barSeries->attachAxis(axisX);
+
+    QValueAxis *axisY = new QValueAxis();
+    axisY->setRange(0, std::max(hommeCount, femmeCount) + 1); // +1 pour un peu d'espace
+    axisY->setTickCount(std::max(hommeCount, femmeCount) + 2); // Nombre de ticks
+    axisY->setLabelFormat("%d"); // Format entier
+    barChart->addAxis(axisY, Qt::AlignLeft);
+    barSeries->attachAxis(axisY);
+
+    QChartView *barChartView = new QChartView(barChart);
+    barChartView->setRenderHint(QPainter::Antialiasing);
+    barChartView->setMinimumSize(250, 400);
+
+    // === CONTENEUR PRINCIPAL ===
+    QWidget *container = new QWidget();
+    QHBoxLayout *chartLayout = new QHBoxLayout(container);
+    chartLayout->addWidget(barChartView);
+    chartLayout->addWidget(pieChartView);
+
+    // Style du conteneur
+    container->setStyleSheet("background-color: #f0f8ff; border-radius: 15px; padding: 15px;");
+
+    // Effet d'ombre
+    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect();
+    shadow->setBlurRadius(15);
+    shadow->setXOffset(5);
+    shadow->setYOffset(5);
+    shadow->setColor(QColor(0, 0, 0, 150));
+    container->setGraphicsEffect(shadow);
+
+    // Titre stylisé
+    QLabel *titleLabel = new QLabel("Patients statics");
+    titleLabel->setAlignment(Qt::AlignCenter);
+    titleLabel->setStyleSheet("font-size: 18px; font-weight: bold; color: #4169e1; margin-bottom: 15px;");
+
+    // Layout final
+    QVBoxLayout *mainLayout = new QVBoxLayout();
+    mainLayout->addWidget(titleLabel);
+    mainLayout->addWidget(container);
+
+    QWidget *mainWidget = new QWidget();
+    mainWidget->setLayout(mainLayout);
+    ui->chartLayout->layout()->addWidget(mainWidget);
 }
 
+
+void MainWindow::on_DNAbutton_clicked()
+{
+    if (!dnaWindow) {
+        dnaWindow = new DnaWindow(this);  // Création de la fenêtre
+        dnaWindow->setAttribute(Qt::WA_DeleteOnClose);  // Gestion automatique de la mémoire
+    }
+
+    dnaWindow->show();  // Affichage de la fenêtre
+    dnaWindow->raise();  // Mise au premier plan
+    dnaWindow->activateWindow();  // Activation de la fenêtre
+}
+
+
+void MainWindow::on_ajouter_clicked() {
+    // Récupérer les valeurs des champs de texte
+    QString id = ui->id->text();
+    QString nom = ui->nom->text();
+    QString prenom = ui->prenom->text();
+    QString genre = ui->genre->currentText();
+    QString date = ui->date->text();
+    QString tel = ui->tel->text();
+
+    // Vérification de la longueur de l'ID et du téléphone
+    if (id.length() != TELEPHONE_LENGTH || tel.length() != TELEPHONE_LENGTH) {
+        QMessageBox::warning(this, "Erreur", "L'ID et le téléphone doivent contenir exactement 8 chiffres.");
+        return;
+    }
+
+    // Vérification que tous les champs sont remplis et qu'un fichier est sélectionné
+    if (nom.isEmpty() || prenom.isEmpty() || currentFilePath.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis et un fichier doit être sélectionné.");
+        return;
+    }
+
+    // Lire le fichier sélectionné
+    QFile file(currentFilePath);
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(this, "Erreur", "Impossible d'ouvrir le fichier sélectionné.");
+        return;
+    }
+    QByteArray fileData = file.readAll();
+    file.close();
+
+    // Extraire uniquement le nom du fichier (pour l'affichage dans l'interface)
+    QFileInfo fileInfo(currentFilePath);
+    QString fileName = fileInfo.fileName();
+
+    // Créer un objet Crud pour ajouter le patient
+    Crud crud;
+
+    // Ajouter le patient à la base de données, en incluant le fichier (dossier de type BLOB)
+    crud.add_patient(id.toInt(), nom, prenom, genre, date, fileName, tel.toInt(), fileData);
+
+    // Rafraîchir le tableau
+    crud.load_patients(ui->tableWidget);
+
+    // Appeler une fonction pour réinitialiser les champs du formulaire
+    on_cancel_clicked();
+
+
+}
+
+void MainWindow::on_cancel_clicked() {
+    ui->id->clear();
+    ui->nom->clear();
+    ui->prenom->clear();
+    ui->genre->setCurrentIndex(-1);
+    ui->date->clear();
+    ui->tel->clear();
+    if (fileLabel) {
+        fileLabel->clear();
+    }
+    currentFilePath.clear();
+    selectedPatientId = -1;
+}
+
+void MainWindow::on_nom2_textChanged(const QString &text) {
+    Crud crud;
+    crud.search_patient(-1, text, ui->tableWidget);
+}
+
+void MainWindow::on_tableWidget_cellClicked(int row, int column) {
+    Q_UNUSED(column);
+    QTableWidgetItem *idItem = ui->tableWidget->item(row, 0); // column 0 = ID
+
+    if (idItem) {
+        selectedPatientId = idItem->text().toInt();
+
+        // Open the detailed dialog
+        PatientDetailsDialog *dialog = new PatientDetailsDialog(selectedPatientId, ui->tableWidget, this);
+        dialog->exec();
+        delete dialog;
+
+
+    }
+}
+
+
+
+void MainWindow::on_sortComboBox_changed(const QString &sortType) {
+    Crud crud;
+    ui->tableWidget->setRowCount(0);  // Clear the table first
+    crud.load_sorted_recherche(ui->tableWidget, sortType);
+}
+
+void MainWindow::on_browseButton_clicked() {
+    QString filePath = QFileDialog::getOpenFileName(this, "Select File", "", "All Files (*)");
+    if (!filePath.isEmpty()) {
+        currentFilePath = filePath;
+        QFileInfo fileInfo(filePath);
+        if (fileLabel) {
+            fileLabel->setText(fileInfo.fileName());  // Show the file name
+        }
+    }
+}

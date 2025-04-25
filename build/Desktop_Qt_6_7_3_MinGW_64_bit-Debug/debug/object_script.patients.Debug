@@ -1,0 +1,17 @@
+debug/Crud.o
+debug/connection.o
+debug/dnaanalyzer.o
+debug/dnawindow.o
+debug/main.o
+debug/mainwindow.o
+debug/patientdata.o
+debug/patientdetailsdialog.o
+debug/simulationengine.o
+debug/viraldata.o
+debug/viralresponse.o
+debug/qrc_Patient.o
+debug/moc_dnaanalyzer.o
+debug/moc_dnawindow.o
+debug/moc_mainwindow.o
+debug/moc_patientdetailsdialog.o
+debug/moc_simulationengine.o

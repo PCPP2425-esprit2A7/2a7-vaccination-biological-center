@@ -1,8 +1,7 @@
-QT       += core gui sql
-QT += core gui
-QT += core gui sql printsupport
-QT += charts
-
+QT       += core gui sql printsupport charts
+QT += core gui widgets sql
+QT += pdf
+QT += core gui charts widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -13,17 +12,35 @@ CONFIG += c++17
 
 SOURCES += \
     Crud.cpp \
+    animatedbaritem.cpp \
     connection.cpp \
+    dnaanalyzer.cpp \
+    dnawindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    patientdata.cpp \
+    patientdetailsdialog.cpp \
+    simulationengine.cpp \
+    viraldata.cpp \
+    viralresponse.cpp
 
 HEADERS += \
     Crud.h \
+    animatedbaritem.h \
     connection.h \
-    mainwindow.h
+    dnaanalyzer.h \
+    dnawindow.h \
+    mainwindow.h \
+    patientdata.h \
+    patientdetailsdialog.h \
+    simulationengine.h \
+    viraldata.h \
+    viralresponse.h
 
 FORMS += \
-    mainwindow.ui
+    dnawindow.ui \
+    mainwindow.ui \
+    patientdetailsdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -1,0 +1,17 @@
+release/Crud.o
+release/connection.o
+release/dnaanalyzer.o
+release/dnawindow.o
+release/main.o
+release/mainwindow.o
+release/patientdata.o
+release/patientdetailsdialog.o
+release/simulationengine.o
+release/viraldata.o
+release/viralresponse.o
+release/qrc_Patient.o
+release/moc_dnaanalyzer.o
+release/moc_dnawindow.o
+release/moc_mainwindow.o
+release/moc_patientdetailsdialog.o
+release/moc_simulationengine.o

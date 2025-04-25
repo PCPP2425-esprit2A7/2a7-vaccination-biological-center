@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1721</width>
+    <width>1747</width>
     <height>976</height>
    </rect>
   </property>
@@ -360,7 +360,7 @@ font: 900 italic 15pt &quot;Segoe UI&quot;;</string>
       <x>280</x>
       <y>110</y>
       <width>1451</width>
-      <height>761</height>
+      <height>841</height>
      </rect>
     </property>
     <property name="font">
@@ -377,7 +377,7 @@ color: rgb(0, 0, 0);
 </string>
     </property>
     <property name="title">
-     <string> Gestion Patients</string>
+     <string> Gestion Patient</string>
     </property>
     <widget class="QLabel" name="label_2">
      <property name="geometry">
@@ -585,7 +585,7 @@ color: rgb(0, 0, 0);</string>
        <string/>
       </property>
       <property name="placeholderText">
-       <string>taper ID</string>
+       <string>Enter ID</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="nom">
@@ -604,7 +604,7 @@ color: rgb(0, 0, 0);</string>
        <string/>
       </property>
       <property name="placeholderText">
-       <string>taper Nom</string>
+       <string>Enter Nom</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="prenom">
@@ -623,7 +623,7 @@ color: rgb(0, 0, 0);</string>
        <string/>
       </property>
       <property name="placeholderText">
-       <string>taper prenom</string>
+       <string>Enter prenom</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="tel">
@@ -642,7 +642,7 @@ color: rgb(0, 0, 0);</string>
        <string/>
       </property>
       <property name="placeholderText">
-       <string>taper tel</string>
+       <string>Enter tel</string>
       </property>
      </widget>
      <widget class="QPushButton" name="ajouter">
@@ -661,7 +661,7 @@ background-color:#030C54;
 color:white</string>
       </property>
       <property name="text">
-       <string>Ajouter</string>
+       <string>ADD</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="date">
@@ -680,16 +680,16 @@ color:white</string>
        <string/>
       </property>
       <property name="placeholderText">
-       <string>donner date </string>
+       <string>Enter date </string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="doc">
+     <widget class="QLineEdit" name="fileLabel">
       <property name="geometry">
        <rect>
-        <x>200</x>
-        <y>380</y>
-        <width>271</width>
-        <height>131</height>
+        <x>240</x>
+        <y>390</y>
+        <width>231</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -699,7 +699,7 @@ color:white</string>
        <string/>
       </property>
       <property name="placeholderText">
-       <string>taper description</string>
+       <string>Enter description</string>
       </property>
      </widget>
      <widget class="QComboBox" name="genre">
@@ -718,7 +718,7 @@ color:white</string>
        <string/>
       </property>
       <property name="placeholderText">
-       <string>chosir le genre</string>
+       <string>Choose Gender  </string>
       </property>
      </widget>
      <widget class="QPushButton" name="cancel">
@@ -740,6 +740,64 @@ color:white</string>
        <string>cancel</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="browseButton">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>390</y>
+        <width>81</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#030C54;
+color:white
+</string>
+      </property>
+      <property name="text">
+       <string>Navigate</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="DNAbutton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>470</y>
+        <width>191</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#030C54;
+color:white</string>
+      </property>
+      <property name="text">
+       <string>DNA</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="StatButton">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>470</y>
+        <width>191</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#030C54;
+color:white</string>
+      </property>
+      <property name="text">
+       <string>Stats </string>
+      </property>
+     </widget>
     </widget>
     <widget class="QLabel" name="label_9">
      <property name="geometry">
@@ -758,7 +816,7 @@ color:white</string>
       </font>
      </property>
      <property name="text">
-      <string>Ajouter-Patient</string>
+      <string>Add Patient</string>
      </property>
     </widget>
     <widget class="QGroupBox" name="groupBox_3">
@@ -767,7 +825,7 @@ color:white</string>
        <x>510</x>
        <y>40</y>
        <width>941</width>
-       <height>341</height>
+       <height>681</height>
       </rect>
      </property>
      <property name="font">
@@ -779,7 +837,7 @@ color:white</string>
       </font>
      </property>
      <property name="title">
-      <string>Liste des Patients</string>
+      <string>Patient Liste :</string>
      </property>
      <widget class="QTableWidget" name="tableWidget">
       <property name="geometry">
@@ -835,55 +893,14 @@ color:white</string>
         <height>61</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="retour">
-         <property name="styleSheet">
-          <string notr="true">image: url(:/new/prefix1/image/repeat.svg);</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pdf">
-         <property name="styleSheet">
-          <string notr="true">image: url(:/new/prefix1/image/pdff.png);</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="drop">
-         <property name="styleSheet">
-          <string notr="true">image: url(:/new/prefix1/image/sup.png);</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="mod">
-         <property name="styleSheet">
-          <string notr="true">image: url(:/new/prefix1/image/mod.jpeg);</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <layout class="QHBoxLayout" name="horizontalLayout"/>
      </widget>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>30</x>
         <y>60</y>
-        <width>581</width>
+        <width>471</width>
         <height>41</height>
        </rect>
       </property>
@@ -907,7 +924,7 @@ color:white</string>
           </font>
          </property>
          <property name="text">
-          <string>chercher patient  :</string>
+          <string>Search Patient  :</string>
          </property>
         </widget>
        </item>
@@ -922,67 +939,51 @@ color: rgb(0, 0, 0);</string>
           <string/>
          </property>
          <property name="placeholderText">
-          <string>donner Nom </string>
+          <string>Patient Name </string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="id2">
-         <property name="styleSheet">
-          <string notr="true">;
-background-color: rgb(255, 255, 255);
-color: rgb(0, 0, 0);</string>
-         </property>
-         <property name="text">
+        <widget class="QComboBox" name="sortComboBox">
+         <property name="currentText">
           <string/>
          </property>
          <property name="placeholderText">
-          <string>donner ID </string>
+          <string>Show all</string>
          </property>
+         <item>
+          <property name="text">
+           <string>Show-all</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Nom (A-Z)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Nom (Z-A)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Genre (Homme/Femme)</string>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>
      </widget>
-    </widget>
-    <widget class="QGroupBox" name="stat">
-     <property name="geometry">
-      <rect>
-       <x>510</x>
-       <y>370</y>
-       <width>901</width>
-       <height>371</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>20</pointsize>
-       <italic>true</italic>
-       <bold>true</bold>
-       <underline>true</underline>
-      </font>
-     </property>
-     <property name="title">
-      <string>Statistiques :</string>
-     </property>
-     <widget class="QTableWidget" name="tableWidget_2">
+     <widget class="QWidget" name="chartLayout" native="true">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>50</y>
-        <width>251</width>
-        <height>241</height>
+        <width>681</width>
+        <height>521</height>
        </rect>
       </property>
-      <column>
-       <property name="text">
-        <string>Genres </string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Nombres</string>
-       </property>
-      </column>
      </widget>
     </widget>
    </widget>
