@@ -1,0 +1,12 @@
+../obj/main.o
+../obj/mainwindow.o
+../obj/crud.o
+../obj/connection.o
+../obj/serialhandler.o
+../obj/smtp_mailer_secure.o
+../obj/qrc_image1.o
+../obj/qrc_image2.o
+../obj/moc_AnimatedBarItem.o
+../obj/moc_mainwindow.o
+../obj/moc_serialhandler.o
+../obj/moc_smtp_mailer_secure.o
