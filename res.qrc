@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>img/Adobe Express - file (2).png</file>
+        <file>img/Adobe Express - file (3).png</file>
+        <file>img/Adobe Express - file (5).png</file>
+        <file>img/Adobe Express - file.png</file>
+        <file>img/chercher.png</file>
+        <file>img/dec.png</file>
+        <file>img/employe-Photoroom.png</file>
+        <file>img/equipement.png</file>
+        <file>img/home.png</file>
+        <file>img/mod.jpeg</file>
+        <file>img/patient.png</file>
+        <file>img/pdff.png</file>
+        <file>img/Remove background project.png</file>
+        <file>img/repeat.svg</file>
+        <file>img/sup.png</file>
+        <file>img/pngtree-vector-setting-icon-png-image_325282.jpg</file>
+        <file>img/patient-icon-png-21.png</file>
+        <file>img/qr_code_PNG10.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>img/micro.jpg</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DnaWindow</class>
+ <widget class="QMainWindow" name="DnaWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1387</width>
+    <height>828</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Viral Response DNA Analyzer</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(243, 249, 251);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="headerLabel">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>80</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(17, 60, 103);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Viral Response DNA Analyzer</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="mainLayout">
+      <item>
+       <widget class="QGroupBox" name="inputGroupBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>3</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>350</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <italic>true</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center;
+    padding: 0 10px;
+    background-color: rgb(243, 249, 251);
+    color: #030C54;
+}</string>
+        </property>
+        <property name="title">
+         <string>Patient Parameters</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QGroupBox" name="patientGroupBox">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <italic>true</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center;
+    padding: 0 10px;
+    background-color: rgb(243, 249, 251);
+    color: #030C54;
+}</string>
+           </property>
+           <property name="title">
+            <string>Patient Information</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout">
+            <item row="0" column="0">
+             <widget class="QLabel" name="bloodTypeLabel">
+              <property name="font">
+               <font>
+                <family>Perpetua</family>
+                <pointsize>10</pointsize>
+                <italic>true</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:#030C54;</string>
+              </property>
+              <property name="text">
+               <string>Blood Type:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="bloodTypeComboBox">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);
+color: #030C54;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="ageLabel">
+              <property name="font">
+               <font>
+                <family>Perpetua</family>
+                <pointsize>10</pointsize>
+                <italic>true</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:#030C54;</string>
+              </property>
+              <property name="text">
+               <string>Age:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QSpinBox" name="ageSpinBox">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);
+color: #030C54;</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>120</number>
+              </property>
+              <property name="value">
+               <number>35</number>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="genderLabel">
+              <property name="font">
+               <font>
+                <family>Perpetua</family>
+                <pointsize>10</pointsize>
+                <italic>true</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:#030C54;</string>
+              </property>
+              <property name="text">
+               <string>Gender:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="genderComboBox">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);
+color: #030C54;</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Male</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Female</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Other</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="geneticGroupBox">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <italic>true</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center;
+    padding: 0 10px;
+    background-color: rgb(243, 249, 251);
+    color: #030C54;
+}</string>
+           </property>
+           <property name="title">
+            <string>Genetic Parameters</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QTextEdit" name="patientInfoTextEdit">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);
+color: #030C54;
+border:1px solid black;
+border-radius:10px;</string>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="importPatientDataButtonp">
+              <property name="styleSheet">
+               <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#030C54;
+color:white</string>
+              </property>
+              <property name="text">
+               <string>Import Patient Data</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="viralGroupBox">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <italic>true</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center;
+    padding: 0 10px;
+    background-color: rgb(243, 249, 251);
+    color: #030C54;
+}</string>
+           </property>
+           <property name="title">
+            <string>Viral Parameters</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout_2">
+            <item row="0" column="0">
+             <widget class="QLabel" name="virusTypeLabel">
+              <property name="font">
+               <font>
+                <family>Perpetua</family>
+                <pointsize>10</pointsize>
+                <italic>true</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:#030C54;</string>
+              </property>
+              <property name="text">
+               <string>Virus Type:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="virusTypeComboBox">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);
+color: #030C54;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="viralLoadLabel">
+              <property name="font">
+               <font>
+                <family>Perpetua</family>
+                <pointsize>10</pointsize>
+                <italic>true</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:#030C54;</string>
+              </property>
+              <property name="text">
+               <string>Initial Viral Load:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QSlider" name="viralLoadSlider">
+              <property name="styleSheet">
+               <string notr="true">color: #030C54;</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="value">
+               <number>50</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QPushButton" name="importViralDataButtonp">
+              <property name="styleSheet">
+               <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#226597;
+color:white</string>
+              </property>
+              <property name="text">
+               <string>Import Viral Data</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="simulationGroupBox">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <italic>true</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center;
+    padding: 0 10px;
+    background-color: rgb(243, 249, 251);
+    color: #030C54;
+}</string>
+           </property>
+           <property name="title">
+            <string>Simulation Settings</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout_4">
+            <item row="0" column="0">
+             <widget class="QLabel" name="simulationDepthLabel">
+              <property name="font">
+               <font>
+                <family>Perpetua</family>
+                <pointsize>10</pointsize>
+                <italic>true</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:#030C54;</string>
+              </property>
+              <property name="text">
+               <string>Simulation Depth (Days):</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QSpinBox" name="simulationDepthSpinBox">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);
+color: #030C54;</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="value">
+               <number>30</number>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="parametersLabel">
+              <property name="font">
+               <font>
+                <family>Perpetua</family>
+                <pointsize>10</pointsize>
+                <italic>true</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:#030C54;</string>
+              </property>
+              <property name="text">
+               <string>Parameter Intensity:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QSlider" name="parametersSlider">
+                <property name="value">
+                 <number>50</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="parameterValueLabel">
+                <property name="styleSheet">
+                 <string notr="true">color:#030C54;</string>
+                </property>
+                <property name="text">
+                 <string>50%</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="buttonLayout">
+           <item>
+            <widget class="QPushButton" name="runSimulationButtonp">
+             <property name="styleSheet">
+              <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#030C54;
+color:white</string>
+             </property>
+             <property name="text">
+              <string>Run Simulation</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="clearDataButton">
+             <property name="styleSheet">
+              <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#226597;
+color:white</string>
+             </property>
+             <property name="text">
+              <string>Clear Data</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="resultsWidget" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>5</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QGroupBox" name="resultsGroupBox">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+             <italic>true</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center;
+    padding: 0 10px;
+    background-color: rgb(243, 249, 251);
+    color: #030C54;
+}</string>
+           </property>
+           <property name="title">
+            <string>Simulation Results</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QWidget" name="chartsWidget" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);
+border:1px solid black;
+border-radius:10px;</string>
+              </property>
+              <layout class="QGridLayout" name="chartsLayout"/>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="responseTypeLabel">
+           <property name="font">
+            <font>
+             <pointsize>14</pointsize>
+             <italic>true</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(17, 60, 103);</string>
+           </property>
+           <property name="text">
+            <string>Viral Response Type: --</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="analysisGroupBox">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+             <italic>true</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center;
+    padding: 0 10px;
+    background-color: rgb(243, 249, 251);
+    color: #030C54;
+}</string>
+           </property>
+           <property name="title">
+            <string>Analysis Results</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QTextEdit" name="resultsTextEdit">
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);
+color: #030C54;
+border:1px solid black;
+border-radius:10px;</string>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+              <property name="placeholderText">
+               <string>Run a simulation to see results...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="resultButtonsLayout">
+           <item>
+            <widget class="QPushButton" name="analyzeResponseButtonp">
+             <property name="styleSheet">
+              <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#030C54;
+color:white</string>
+             </property>
+             <property name="text">
+              <string>Analyze Response</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="exportPdfButtonp">
+             <property name="styleSheet">
+              <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#226597;
+color:white</string>
+             </property>
+             <property name="text">
+              <string>Export Results</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QProgressBar" name="simulationProgressBar">
+           <property name="styleSheet">
+            <string notr="true">QProgressBar {
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+}
+
+QProgressBar::chunk {
+    background-color: rgb(17, 60, 103);
+}</string>
+           </property>
+           <property name="value">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="recommendationsGroupBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>4</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <italic>true</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center;
+    padding: 0 10px;
+    background-color: rgb(243, 249, 251);
+    color: #030C54;
+}</string>
+        </property>
+        <property name="title">
+         <string>Recommendations</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <widget class="QTextEdit" name="recommendationsTextEdit">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);
+color: #030C54;
+border:1px solid black;
+border-radius:10px;</string>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="placeholderText">
+            <string>Click &quot;Analyze Response&quot; to get personalized recommendations...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="footerLayout">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="statusLabel">
+        <property name="styleSheet">
+         <string notr="true">color: #030C54;</string>
+        </property>
+        <property name="text">
+         <string>Ready to analyze viral responses</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="exitButton">
+        <property name="styleSheet">
+         <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#030C54;
+color:white</string>
+        </property>
+        <property name="text">
+         <string>Exit</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1387</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionImportPatientData"/>
+    <addaction name="actionImportViralData"/>
+    <addaction name="separator"/>
+    <addaction name="actionExportResults"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuAnalysis">
+    <property name="title">
+     <string>Analysis</string>
+    </property>
+    <addaction name="actionRunSimulation"/>
+    <addaction name="actionAnalyzeResponse"/>
+    <addaction name="separator"/>
+    <addaction name="actionClearData"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionDocumentation"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuAnalysis"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionImportPatientData">
+   <property name="text">
+    <string>Import Patient Data...</string>
+   </property>
+  </action>
+  <action name="actionImportViralData">
+   <property name="text">
+    <string>Import Viral Data...</string>
+   </property>
+  </action>
+  <action name="actionExportResults">
+   <property name="text">
+    <string>Export Results...</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionRunSimulation">
+   <property name="text">
+    <string>Run Simulation</string>
+   </property>
+  </action>
+  <action name="actionAnalyzeResponse">
+   <property name="text">
+    <string>Analyze Response</string>
+   </property>
+  </action>
+  <action name="actionClearData">
+   <property name="text">
+    <string>Clear Data</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionDocumentation">
+   <property name="text">
+    <string>Documentation</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

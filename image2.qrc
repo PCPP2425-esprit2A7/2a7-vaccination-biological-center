@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+    <file>resources/Adobe Express - file.png</file>
+    <file>resources/dec.png</file>
+    <file>resources/employe-Photoroom.png</file>
+    <file>resources/equipement.png</file>
+    <file>resources/mod.jpeg</file>
+    <file>resources/Adobe Express - file (2).png</file>
+    <file>resources/Adobe Express - file (3).png</file>
+    <file>resources/Adobe Express - file (5).png</file>
+    <file>resources/Adobe Express - file.png</file>
+    <file>resources/chercher.png</file>
+    <file>resources/equipement.png</file>
+    <file>resources/home.png</file>
+    <file>resources/patient.png</file>
+    <file>resources/pdff.png</file>
+    <file>resources/Remove background project.png</file>
+    <file>resources/repeat.svg</file>
+    <file>resources/sup.png</file>
+    <file>resources/loading.gif</file>
+    <file>resources/mic.png</file>
+    <file>resources/voice.gif</file>
+    <file>resources/send.png</file>
+    <file>resources/typing.wav</file>
+    <file>resources/stop.png</file>
+    <file>resources/stat.png</file>
+    <file>resources/histo.png</file>
+    <file>resources/openai-icon.png</file>
+    <file>resources/cercle.png</file>
+    <file>resources/Adobe Express - file (3).png</file>
+
+    </qresource>
+</RCC>

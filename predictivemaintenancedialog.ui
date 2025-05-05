@@ -1,0 +1,981 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PredictiveMaintenanceDialog</class>
+ <widget class="QDialog" name="PredictiveMaintenanceDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>750</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Predictive Maintenance</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(243, 249, 251);</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QWidget" name="headerWidget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>120</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>120</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(17, 60, 103);</string>
+     </property>
+     <widget class="QLabel" name="headerTitle">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>20</y>
+        <width>500</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>30</pointsize>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Predictive Maintenance</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="contentWidget" native="true">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(243, 249, 251);</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QWidget" name="sidebarWidget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>230</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>230</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(17, 60, 103);</string>
+        </property>
+        <widget class="QLabel" name="sidebarTitle">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>211</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+           <italic>true</italic>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>Maintenance Hub</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QFrame" name="statusFrame">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>80</y>
+           <width>211</width>
+           <height>171</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(34, 101, 151);
+border-radius: 20px;</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLabel" name="summaryTitle">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>10</y>
+            <width>211</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+            <italic>true</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+          <property name="text">
+           <string>Equipment Status</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QLabel" name="totalLabel">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>50</y>
+            <width>171</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+          <property name="text">
+           <string>Total: 0</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="functionalLabel">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>80</y>
+            <width>171</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+          <property name="text">
+           <string>Functional: 0</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="damagedLabel">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>110</y>
+            <width>171</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+          <property name="text">
+           <string>Damaged: 0</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="atRiskLabel">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>140</y>
+            <width>171</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: white;</string>
+          </property>
+          <property name="text">
+           <string>At Risk: 0</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QPushButton" name="generateOrdersBtn">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>280</y>
+           <width>211</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#226597;
+color:white</string>
+         </property>
+         <property name="text">
+          <string>Generate Orders</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="runPredictionsBtn">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>340</y>
+           <width>211</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#226597;
+color:white</string>
+         </property>
+         <property name="text">
+          <string>Run Predictions</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="viewMaintenanceHistoryBtn">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>400</y>
+           <width>211</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#226597;
+color:white</string>
+         </property>
+         <property name="text">
+          <string>View Maintenance History</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="closeBtn">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>580</y>
+           <width>211</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#226597;
+color:white</string>
+         </property>
+         <property name="text">
+          <string>Return to Equipment List</string>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTabWidget" name="mainTabWidget">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 12pt &quot;Segoe UI&quot;;</string>
+        </property>
+        <widget class="QWidget" name="predictionsTab">
+         <attribute name="title">
+          <string>Failure Predictions</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QGroupBox" name="predictionsGroup">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>20</pointsize>
+              <italic>true</italic>
+              <bold>true</bold>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="title">
+             <string>Equipment Failure Predictions</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <layout class="QHBoxLayout" name="filterLayout">
+               <item>
+                <widget class="QLabel" name="thresholdLabel">
+                 <property name="font">
+                  <font>
+                   <family>Perpetua</family>
+                   <pointsize>12</pointsize>
+                   <italic>true</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:#030C54;</string>
+                 </property>
+                 <property name="text">
+                  <string>Show equipment likely to fail within:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="thresholdComboBox">
+                 <property name="minimumSize">
+                  <size>
+                   <width>100</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(255, 255, 255);</string>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>7 days</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>14 days</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>30 days</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>60 days</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>90 days</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="checkPredictionsBtn">
+                 <property name="styleSheet">
+                  <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#030C54;
+color:white</string>
+                 </property>
+                 <property name="text">
+                  <string>Check Predictions</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QTableWidget" name="predictionsTable">
+               <property name="styleSheet">
+                <string notr="true">QTableWidget {
+  background-color: white;
+  alternate-background-color: rgb(240, 250, 254);
+  selection-background-color: rgb(17, 60, 103);
+  selection-color: white;
+}
+QHeaderView::section {
+  background-color: rgb(17, 60, 103);
+  color: white;
+  padding: 4px;
+  font-size: 10pt;
+  border: 1px solid #6c6c6c;
+}</string>
+               </property>
+               <property name="alternatingRowColors">
+                <bool>true</bool>
+               </property>
+               <property name="selectionMode">
+                <enum>QAbstractItemView::SingleSelection</enum>
+               </property>
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
+               </property>
+               <column>
+                <property name="text">
+                 <string>ID</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Name</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Type</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Status</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Predicted Failure</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Days Remaining</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Risk Level</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="maintenanceTab">
+         <attribute name="title">
+          <string>Record Maintenance</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QGroupBox" name="selectedEquipmentGroup">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>15</pointsize>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="title">
+             <string>Selected Equipment</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <layout class="QFormLayout" name="selectedEquipmentLayout">
+               <item row="0" column="0">
+                <widget class="QLabel" name="selectedIdLabel">
+                 <property name="font">
+                  <font>
+                   <family>Perpetua</family>
+                   <pointsize>12</pointsize>
+                   <italic>true</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:#030C54;</string>
+                 </property>
+                 <property name="text">
+                  <string>ID:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="selectedIdValue">
+                 <property name="text">
+                  <string>(None selected)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="selectedNameLabel">
+                 <property name="font">
+                  <font>
+                   <family>Perpetua</family>
+                   <pointsize>12</pointsize>
+                   <italic>true</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:#030C54;</string>
+                 </property>
+                 <property name="text">
+                  <string>Name:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="selectedNameValue">
+                 <property name="text">
+                  <string>(None selected)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="selectedTypeLabel">
+                 <property name="font">
+                  <font>
+                   <family>Perpetua</family>
+                   <pointsize>12</pointsize>
+                   <italic>true</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:#030C54;</string>
+                 </property>
+                 <property name="text">
+                  <string>Type:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLabel" name="selectedTypeValue">
+                 <property name="text">
+                  <string>(None selected)</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QFormLayout" name="selectedStatusLayout">
+               <item row="0" column="0">
+                <widget class="QLabel" name="selectedStatusLabel">
+                 <property name="font">
+                  <font>
+                   <family>Perpetua</family>
+                   <pointsize>12</pointsize>
+                   <italic>true</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:#030C54;</string>
+                 </property>
+                 <property name="text">
+                  <string>Status:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="selectedStatusValue">
+                 <property name="text">
+                  <string>(None selected)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="predFailureLabel">
+                 <property name="font">
+                  <font>
+                   <family>Perpetua</family>
+                   <pointsize>12</pointsize>
+                   <italic>true</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:#030C54;</string>
+                 </property>
+                 <property name="text">
+                  <string>Predicted Failure:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="predFailureValue">
+                 <property name="text">
+                  <string>(None selected)</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="maintenanceDetailsGroup">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>15</pointsize>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="title">
+             <string>Maintenance Details</string>
+            </property>
+            <layout class="QFormLayout" name="maintenanceLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="maintCostLabel">
+               <property name="font">
+                <font>
+                 <family>Perpetua</family>
+                 <pointsize>12</pointsize>
+                 <italic>true</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color:#030C54;</string>
+               </property>
+               <property name="text">
+                <string>Maintenance Cost:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="maintenanceCostEdit">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 255, 255);</string>
+               </property>
+               <property name="placeholderText">
+                <string>Enter cost (numbers only)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="maintDetailsLabel">
+               <property name="font">
+                <font>
+                 <family>Perpetua</family>
+                 <pointsize>12</pointsize>
+                 <italic>true</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color:#030C54;</string>
+               </property>
+               <property name="text">
+                <string>Details:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QTextEdit" name="maintenanceDetailsEdit">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 255, 255);</string>
+               </property>
+               <property name="placeholderText">
+                <string>Enter details of maintenance performed (repairs, replaced parts, etc.)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QPushButton" name="recordMaintenanceBtn">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border:1px solid white;
+border-radius:20px;
+background-color:#030C54;
+color:white</string>
+               </property>
+               <property name="text">
+                <string>Record Maintenance</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="historyTab">
+         <attribute name="title">
+          <string>Maintenance History</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <widget class="QGroupBox" name="historyGroup">
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>15</pointsize>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="title">
+             <string>Equipment Maintenance History</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <layout class="QHBoxLayout" name="historyFilterLayout">
+               <item>
+                <widget class="QLabel" name="historyFilterLabel">
+                 <property name="font">
+                  <font>
+                   <family>Perpetua</family>
+                   <pointsize>12</pointsize>
+                   <italic>true</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:#030C54;</string>
+                 </property>
+                 <property name="text">
+                  <string>Filter by Equipment:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="equipmentFilterCombo">
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(255, 255, 255);</string>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>All Equipment</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QTableWidget" name="historyTable">
+               <property name="styleSheet">
+                <string notr="true">QTableWidget {
+  background-color: white;
+  alternate-background-color: rgb(240, 250, 254);
+  selection-background-color: rgb(17, 60, 103);
+  selection-color: white;
+}
+QHeaderView::section {
+  background-color: rgb(17, 60, 103);
+  color: white;
+  padding: 4px;
+  font-size: 10pt;
+  border: 1px solid #6c6c6c;
+}</string>
+               </property>
+               <property name="alternatingRowColors">
+                <bool>true</bool>
+               </property>
+               <property name="selectionMode">
+                <enum>QAbstractItemView::SingleSelection</enum>
+               </property>
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
+               </property>
+               <column>
+                <property name="text">
+                 <string>ID</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Equipment</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Date</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Old Status</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>New Status</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Cost</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Details</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="footerWidget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(17, 60, 103);</string>
+     </property>
+     <widget class="QLabel" name="footerLabel">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1200</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>© 2023 Equipment Maintenance System - Predictive Maintenance Module</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
